@@ -19,6 +19,6 @@ spring:
         format_sql: true
 
 jwt:
-  secret: %RYvF#k>}6jc-aO.eFbx)KS>pv^$.W_L
+  secret: RYvF#k>}6jc-aO.eFbx)KS>pv^$.W_L
   expiration: 3600000
   refresh-expiration: 604800000

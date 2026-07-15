@@ -10,8 +10,11 @@ import com.tk.authservice.entity.User;
 import com.tk.authservice.exception.ResourceAlreadyExistsException;
 import com.tk.authservice.repository.RoleRepository;
 import com.tk.authservice.repository.UserRepository;
+import com.tk.authservice.security.JWTService;
 import com.tk.authservice.service.AuthService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +25,8 @@ public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
+    private final JWTService jwtService;
 
 
     @Override
@@ -48,7 +53,18 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AuthResponse login(LoginRequest request) {
-        return null;
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(request.getEmail(),request.getPassword())
+        );
+        User user=userRepository.findByEmail(
+                request.getEmail()
+        ).orElseThrow();
+
+        String accessToken=jwtService.generatedToken(user.getEmail());
+        return AuthResponse.builder()
+                .accessToken(accessToken)
+                .tokenType("Bearer")
+                .build();
     }
 
     @Override

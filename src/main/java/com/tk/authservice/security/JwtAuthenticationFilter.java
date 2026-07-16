@@ -1,5 +1,6 @@
 package com.tk.authservice.security;
 
+import com.tk.authservice.security.jwt.JWTService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

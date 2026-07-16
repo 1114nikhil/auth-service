@@ -1,6 +1,7 @@
 package com.tk.authservice.security;
 
 import com.tk.authservice.entity.User;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
-
+@Getter
 @RequiredArgsConstructor
 public class CustomeUserDetails implements UserDetails {
     private final User user;
